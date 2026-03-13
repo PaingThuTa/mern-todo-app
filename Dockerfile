@@ -9,7 +9,7 @@ COPY . .
 RUN cd TODO/todo_frontend && npm install && npm run build
 
 # Move build output to backend/static
-RUN mv TODO/todo_frontend/build TODO/todo_backend/static
+RUN mkdir -p TODO/todo_backend/static && mv TODO/todo_frontend/build TODO/todo_backend/static/build
 
 # Install backend dependencies
 RUN cd TODO/todo_backend && npm install --production
