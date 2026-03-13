@@ -2,19 +2,17 @@ FROM node:alpine
 
 WORKDIR /app
 
-# Install backend dependencies
-COPY TODO/todo_backend/package*.json ./TODO/todo_backend/
-RUN cd TODO/todo_backend && npm install --production
-
-# Install frontend dependencies & build
-COPY TODO/todo_frontend/package*.json ./TODO/todo_frontend/
-RUN cd TODO/todo_frontend && npm install
-
-# Copy all source files
+# Copy all source files first
 COPY . .
 
-# Build frontend and move to backend/static
-RUN cd TODO/todo_frontend && npm run build && mv build ../todo_backend/static
+# Install frontend dependencies and build
+RUN cd TODO/todo_frontend && npm install && npm run build
+
+# Move build output to backend/static
+RUN mv TODO/todo_frontend/build TODO/todo_backend/static
+
+# Install backend dependencies
+RUN cd TODO/todo_backend && npm install --production
 
 EXPOSE 5000
 
