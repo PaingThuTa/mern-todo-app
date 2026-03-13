@@ -10,8 +10,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'cd TODO/todo_backend && npm install'
-                sh 'cd TODO/todo_frontend && npm install'
+                echo 'Build stage: dependencies will be installed inside Docker'
             }
         }
 
